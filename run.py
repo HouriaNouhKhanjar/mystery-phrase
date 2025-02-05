@@ -6,12 +6,28 @@ class TextProcessor:
     """
     Creating Assistant Procedures for Analyzing Phrases and Words
     """
-    def get_words(self):
+
+    def get_words(self, phrase):
         """
         Return the set of words contained in the sentence without punctuation marks.
         """
-        phrase_without_punctuation = re.sub(r'[^\w\s]', '', self.phrase)
+        phrase_without_punctuation = re.sub(r'[^\w\s]', '', phrase)
         return phrase_without_punctuation.split()
+    
+
+
+
+class MysteryWord(TextProcessor):
+    """
+    Create word object with som properies and functions
+    """
+    def __init__(self, word):
+        self.word = word
+        self.length = len(word)
+        self.start_with = word[0]
+    
+    def describe(self):
+        print(f" This word is {self.length} carachter(s) long, starts with {self.start_with}\n")
 
 
 
@@ -24,9 +40,18 @@ class MysteryPhrase(TextProcessor):
         s = RandomSentence()
         # Get a random sentence with a subject, predicate, direct object and adjective
         self.phrase = s.sentence()
+        self.words = []
     
-    def descripe(self):
-        print(f"   The generated phrase contains {len(self.get_words())} words.")
+    def define_words(self):
+        #get all words from the phrase without ponctuations
+        word_list = self.get_words(self.phrase)
+        #generate defined word object list
+        self.words = [MysteryWord(word) for word in word_list]
+
+
+    
+    def describe(self):
+        print(f"   The generated phrase contains {len(self.words)} words.")
 
 
 
@@ -39,11 +64,15 @@ def main():
     print("   We will see your ability to discover the hidden words!\n")
     mystery_phrase = MysteryPhrase()
     print("   The phrase has been generated for you.")
-    mystery_phrase.descripe()
+    mystery_phrase.describe()
     print("   Let's go..... \n")
+    print("   defining words\n")
+    mystery_phrase.define_words()
+    for w in mystery_phrase.words:
+        w.describe()
+        print("..........................................\n")
     print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
     print(mystery_phrase.phrase)
-    print(mystery_phrase.get_words())
 
 
 main()
