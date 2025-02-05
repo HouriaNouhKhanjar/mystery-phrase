@@ -1,6 +1,7 @@
 from wonderwords import RandomSentence
 import re
-
+import spacy
+nlp = spacy.load('en_core_web_lg')
 
 class TextProcessor:
     """
@@ -12,7 +13,16 @@ class TextProcessor:
         Return the set of words contained in the sentence without punctuation marks.
         """
         phrase_without_punctuation = re.sub(r'[^\w\s]', '', phrase)
-        return phrase_without_punctuation.split()
+        return phrase_without_punctuation, phrase_without_punctuation.split()
+    
+    def get_pos_tag(self, phrase):
+        """
+        Return the part of speach tag of the phrase' words
+        """
+        pos_tags = {}
+        for token in nlp(phrase):
+            pos_tags[token.text] = spacy.explain(token.tag_)
+        return pos_tags
     
 
 
@@ -21,13 +31,15 @@ class MysteryWord(TextProcessor):
     """
     Create word object with som properies and functions
     """
-    def __init__(self, word):
+    def __init__(self, word, pos_tag):
         self.word = word
         self.length = len(word)
         self.start_with = word[0]
+        self.pos_tag = pos_tag
     
     def describe(self):
-        print(f" This word is {self.length} carachter(s) long, starts with {self.start_with}\n")
+        print(f" This word is {self.length} carachter(s) long, starts with {self.start_with}")
+        print(f" POS_TAG for this word is: {self.pos_tag}\n")
 
 
 
@@ -40,13 +52,16 @@ class MysteryPhrase(TextProcessor):
         s = RandomSentence()
         # Get a random sentence with a subject, predicate, direct object and adjective
         self.phrase = s.sentence()
+        self.pos_tags = []
         self.words = []
     
     def define_words(self):
         #get all words from the phrase without ponctuations
-        word_list = self.get_words(self.phrase)
+        phrase_without_punctuation, word_list = self.get_words(self.phrase)
+        #get all pos tags for each words
+        self.pos_tags = self.get_pos_tag(phrase_without_punctuation)
         #generate defined word object list
-        self.words = [MysteryWord(word) for word in word_list]
+        self.words = [MysteryWord(word, self.pos_tags[word]) for word in word_list]
 
 
     
