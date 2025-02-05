@@ -1,12 +1,30 @@
-from wonderwords import RandomSentence
-import re
+from nltk.corpus import wordnet
+import nltk
 import spacy
+import random
+import re
+
+# Load spaCy model
 nlp = spacy.load('en_core_web_lg')
+# List of English words (could be expanded or replaced)
+word_list = [
+    "the", "quick", "brown", "fox", "jumps", "over", "lazy", "dog", "cat", "happy", 
+    "silent", "run", "beautiful", "fast", "slow", "blue", "green", "sits", "under", 
+    "table", "sky", "clouds", "mountain", "river", "walks", "city", "night"
+]
+
 
 class TextProcessor:
     """
-    Creating Assistant Procedures for Analyzing Phrases and Words
+    Creating Assistant Procedures for Generating Random Phrases, Analyzing Phrases and Words
     """
+
+    def generate_random_phrase(self, length):
+        """
+        Generate a random phrase with a specific number of words
+        """
+        return " ".join(random.choice(word_list) for _ in range(length))
+
 
     def get_words(self, phrase):
         """
@@ -24,6 +42,24 @@ class TextProcessor:
             pos_tags[token.text] = spacy.explain(token.tag_)
         return pos_tags
     
+    def get_synonyms(self, word):
+        """
+        Get synonyms for a word
+        """
+        synonyms = set()
+        number_of_synonyms = 0
+        for syn in wordnet.synsets(word):
+            for lemma in syn.lemmas():
+                lemma_name = lemma.name() 
+                if  lemma_name != word and word not in lemma_name and lemma_name not in word:
+                    synonyms.add(lemma.name())  # Add synonym to set
+                    number_of_synonyms += 1
+                if number_of_synonyms == 2 :
+                    break
+            if number_of_synonyms == 2 :
+                    break
+        return list(synonyms)
+    
 
 
 
@@ -36,10 +72,13 @@ class MysteryWord(TextProcessor):
         self.length = len(word)
         self.start_with = word[0]
         self.pos_tag = pos_tag
+        self.synonyms = self.get_synonyms(word)
+    
     
     def describe(self):
         print(f" This word is {self.length} carachter(s) long, starts with {self.start_with}")
-        print(f" POS_TAG for this word is: {self.pos_tag}\n")
+        print(f" POS_TAG for this word is: {self.pos_tag}")
+        print(f" Synonyms for this word are: {self.synonyms}")
 
 
 
@@ -49,9 +88,8 @@ class MysteryPhrase(TextProcessor):
     then establish a set of procedures to handle them."
     """
     def __init__(self):
-        s = RandomSentence()
         # Get a random sentence with a subject, predicate, direct object and adjective
-        self.phrase = s.sentence()
+        self.phrase = self.generate_random_phrase(4)
         self.pos_tags = []
         self.words = []
     
