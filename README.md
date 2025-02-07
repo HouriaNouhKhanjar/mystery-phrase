@@ -15,6 +15,8 @@ The "Mystery Phrase Game" is a game developed using Python in the terminal. The 
 * [Features](#features)
 * [Data Model](#data-model)
 * [Testing](#testing)
+* [Deployment](#deployment)
+* [Credits](#credits)
 
 - - -
 
@@ -114,18 +116,20 @@ I have manually tested the project by doing the following:
   - Given invalid inputs: words with non-alpha characters or incorrect words, and the code responds correctly.
   - Tested in my local terminal and the Code Institute Heroku terminal.
 
-**Bugs**
+### Bugs
 
-*Solved Bugs*
+**Solved Bugs**
+
 There were some errors during the deployment on Heroku.
-- rename runtime.txt with .python-version and remove python- prefix from file content.
-- 'nltk.txt' not found, not downloading any corpora
+- rename **runtime.txt** with **.python-version** and remove python- prefix from file content.
+- **'nltk.txt' not found, not downloading any corpora**
     
     This issue occurred because I am using NLTK to get the meaning of the word, and therefore, I needed to download WordNet. However, during deployment on Heroku, it is not possible to do this manually. To resolve this, I created a file and named it nltk.txt contains the corpora that being used, so it can be downloaded during the build process on the server.
     Reference to this solution: 
     [nltk.txt](https://medium.com/analytics-vidhya/deploying-nlp-model-on-heroku-using-flask-nltk-and-git-lfs-eed7d1b22b11)
 
-- Compiled slug size: 570.1M is too large (max is 500M).
+- **Compiled slug size: 570.1M is too large (max is 500M).**
+
   This issue occurred because I am using spaCy to get the POS tag of the word, and therefore, I needed to load en_core_web_lg. And since its size was very large, I replaced it with en_core_web_sm
 
 **Remaining Bugs:**
@@ -138,7 +142,33 @@ There were some errors during the deployment on Heroku.
 
 - - - 
 
+## Deployment
+This project was deployed using Code Institute's mock terminal for Heroku.
 
+- Steps for deployment:
+  - Fork or clone this repository
+  - Create a new Heroku app
+  - Set the buildpacks to **Python** and **NodeJS** in that order
+  - Link the Heroku app to the repository
+  - Click on Deploy
+
+- - -
+
+## Credits
+
+### Code Used
+
+* I used [this documentation](https://www.geeksforgeeks.org/python-pos-tagging-and-lemmatization-using-spacy/)  to get word POS tag using **spaCy**.
+
+* I used [this documentation](https://pythonprogramming.net/wordnet-nltk-tutorial/) to get word meaning using **nltk**.
+
+### Acknowledgments
+
+I would like to acknowledge the following people:
+
+* Jubril Akolade - My Code Institute Mentor.
+
+* The Code Institute Course that prepared me to complete this project in the best possible way.
 
 
 
