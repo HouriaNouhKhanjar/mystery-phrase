@@ -5,7 +5,6 @@ import random
 import re
 
 
-
 print("Loading data....")
 # Load spaCy model
 nlp = spacy.load('en_core_web_lg')
@@ -17,12 +16,10 @@ word_list = [
     "apple", "book", "running", "game", "plays", "reading", "set"
 ]
 
-
 class TextProcessor:
     """
     Creating Assistant Procedures for Generating Random Phrases, Analyzing Phrases and Words
     """
-
     def generate_random_phrase(self, length):
         """
         Generate a random phrase with a specific number of words
@@ -59,10 +56,6 @@ class TextProcessor:
             return synsets[0].definition()
         else:
             return "Meaning not found."
-       
-    
-
-
 
 class MysteryWord(TextProcessor):
     """
@@ -76,15 +69,26 @@ class MysteryWord(TextProcessor):
         self.meaning = self.get_word_meaning(word)
         self.is_guessed = False
         self.available_attempts = 3
-    
-    
+        
     def describe(self):
         print(f"This word is {self.length} carachter(s) long, starts with {self.start_with}")
         print(f"POS_TAG for this word is: {self.pos_tag}")
         print(f"Words meaning: {self.meaning}")
-
-
-
+    
+    def validate(self,word):
+        number_attempts = f"{self.available_attempts-1} more attempts" if self.available_attempts>1 else "no more attempt"
+        self.available_attempts -= 1
+        if not word.isalpha():
+            return f"\nThe word contains other characters not only letters. You have {number_attempts}.\n"
+        elif self.word.lower() != word.lower():
+            return f"\nThe word was not guessed. The entered word is incorrect. You have {number_attempts}.\n"
+        
+        self.is_guessed = True
+        return f"\nCongratulations!! you have guessed the word.\n"
+    
+    def print_result(self):
+        print(f'{self.word:{15}} \t {self.is_guessed:{6}} \t {3-self.available_attempts:{6}}')
+    
 class MysteryPhrase(TextProcessor):
     """
     Create a random phrase and define the properties of the words it contains,
@@ -104,8 +108,6 @@ class MysteryPhrase(TextProcessor):
         #generate defined word object list
         self.words = [MysteryWord(word, self.pos_tags[word]) for word in word_list]
 
-
-    
     def describe(self):
         print(f"The generated phrase contains {len(self.words)} words.\n")
     
@@ -118,10 +120,8 @@ class Game(MysteryPhrase):
     """
     Initiate the game and interact with user
     """
-
     def __init__(self):
         super().__init__()
-
 
     def start_game(self):
         print("\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
@@ -134,9 +134,30 @@ class Game(MysteryPhrase):
         self.describe()
         print("Let's go..... \n")
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
-        self.display_current_state()
-        print(self.phrase)
+        
 
+    def play(self):
+        self.display_current_state()
+        print(f"{self.phrase}\n")
+        for word in self.words:
+            print("-------------------------------------------------------------\n")
+            while word.available_attempts and not word.is_guessed:
+                word.describe()
+                user_word = input("Please enter a word: ")
+                validation = word.validate(user_word)
+                print(validation)
+            print("-------------------------------------------------------------\n")
+            self.display_current_state()
+    
+    def get_final_result(self):
+        print("Summery for your guessing scroe")
+        print(f'{"word":{15}} \t {"guessed":>{6}} \t {"number of used attempts":{6}}')
+        print(f'---------------------------------------------------------------------------------')
+        for word in self.words:
+            word.print_result()
+        print(f'---------------------------------------------------------------------------------\n')
+        print("The correct phrase is:")
+        print(f"{self.phrase}\n")
 
 def main():
     """
@@ -144,6 +165,7 @@ def main():
     """
     game= Game()
     game.start_game()
-
+    game.play()
+    game.get_final_result()
 
 main()
