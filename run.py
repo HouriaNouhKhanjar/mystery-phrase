@@ -150,7 +150,6 @@ class Game(MysteryPhrase):
 
     def play(self):
         self.display_current_state()
-        print(f"{self.phrase}\n")
         for word in self.words:
             print("-------------------------------------------------"
                   "------------\n")
