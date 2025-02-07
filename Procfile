@@ -1,1 +1,1 @@
-web: setup.py node index.js
+web: python setup.py && node index.js

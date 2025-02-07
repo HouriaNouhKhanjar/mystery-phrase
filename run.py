@@ -1,5 +1,5 @@
-from nltk.corpus import wordnet
 import nltk
+from nltk.corpus import wordnet
 import spacy
 import random
 
