@@ -114,23 +114,36 @@ class MysteryPhrase(TextProcessor):
         print (f"The current state of the phras: {displayed_phrase}\n")
 
 
+class Game(MysteryPhrase):
+    """
+    Initiate the game and interact with user
+    """
+
+    def __init__(self):
+        super().__init__()
+
+
+    def start_game(self):
+        print("\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
+        print("Welcome to Mystery Phrase ^_^ ")
+        print("We will see your ability to discover the hidden words!\n")
+        print("Start generating the phrase...\n\n")
+        print("defining words....\n\n")
+        self.define_words()
+        print("The phrase has been generated for you.")
+        self.describe()
+        print("Let's go..... \n")
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
+        self.display_current_state()
+        print(self.phrase)
+
+
 def main():
     """
-    Create phrase and call the procedures so that the game can begin.
+    Create a game object and start and play the game.
     """
-    print("\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
-    print("Welcome to Mystery Phrase ^_^ ")
-    print("We will see your ability to discover the hidden words!\n")
-    print("Start generating the phrase...\n\n")
-    mystery_phrase = MysteryPhrase()
-    print("defining words....\n\n")
-    mystery_phrase.define_words()
-    print("The phrase has been generated for you.")
-    mystery_phrase.describe()
-    print("Let's go..... \n")
-    print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
-    mystery_phrase.display_current_state()
-    print(mystery_phrase.phrase)
+    game= Game()
+    game.start_game()
 
 
 main()
