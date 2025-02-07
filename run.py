@@ -35,7 +35,7 @@ class TextProcessor:
 
     def get_words(self, phrase):
         """
-        Return the set of words contained in the sentence without punctuation marks.
+        Return the set of words contained in the sentence.
         """
         return phrase.split()
     
@@ -66,7 +66,7 @@ class TextProcessor:
 
 class MysteryWord(TextProcessor):
     """
-    Create word object with som properies and functions
+    Create word object with some properties and functions
     """
     def __init__(self, word, pos_tag):
         self.word = word
@@ -74,12 +74,14 @@ class MysteryWord(TextProcessor):
         self.start_with = word[0]
         self.pos_tag = pos_tag
         self.meaning = self.get_word_meaning(word)
+        self.is_guessed = False
+        self.available_attempts = 3
     
     
     def describe(self):
-        print(f" This word is {self.length} carachter(s) long, starts with {self.start_with}")
-        print(f" POS_TAG for this word is: {self.pos_tag}")
-        print(f" Words meaning: {self.meaning}")
+        print(f"This word is {self.length} carachter(s) long, starts with {self.start_with}")
+        print(f"POS_TAG for this word is: {self.pos_tag}")
+        print(f"Words meaning: {self.meaning}")
 
 
 
@@ -105,8 +107,11 @@ class MysteryPhrase(TextProcessor):
 
     
     def describe(self):
-        print(f"   The generated phrase contains {len(self.words)} words.")
-
+        print(f"The generated phrase contains {len(self.words)} words.\n")
+    
+    def display_current_state(self):
+        displayed_phrase = [word.word if word.is_guessed else "?" for word in self.words]
+        print (f"The current state of the phras: {displayed_phrase}\n")
 
 
 def main():
@@ -114,16 +119,17 @@ def main():
     Create phrase and call the procedures so that the game can begin.
     """
     print("\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
-    print("   Welcome to Mystery Phrase ^_^ ")
-    print("   We will see your ability to discover the hidden words!\n")
-    print("   Start generating sentence...\n\n")
+    print("Welcome to Mystery Phrase ^_^ ")
+    print("We will see your ability to discover the hidden words!\n")
+    print("Start generating the phrase...\n\n")
     mystery_phrase = MysteryPhrase()
-    print("   defining words....\n\n")
+    print("defining words....\n\n")
     mystery_phrase.define_words()
-    print("   The phrase has been generated for you.")
+    print("The phrase has been generated for you.")
     mystery_phrase.describe()
-    print("   Let's go..... \n")
+    print("Let's go..... \n")
     print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
+    mystery_phrase.display_current_state()
     print(mystery_phrase.phrase)
 
 
