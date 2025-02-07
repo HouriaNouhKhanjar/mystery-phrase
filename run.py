@@ -1,10 +1,9 @@
 import nltk
+from nltk.corpus import wordnet
 import spacy
 import random
 
 print("Loading data....")
-nltk.download('wordnet')
-from nltk.corpus import wordnet
 
 # Load spaCy model
 nlp = spacy.load('en_core_web_lg')
