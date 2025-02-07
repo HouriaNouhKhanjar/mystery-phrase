@@ -14,6 +14,7 @@ The "Mystery Phrase Game" is a game developed using Python in the terminal. The 
 * [How To Play](#how-to-play)
 * [Features](#features)
 * [Data Model](#data-model)
+* [Testing](#testing)
 
 - - -
 
@@ -104,6 +105,42 @@ The Game class does not contain any attributes, but it has a relationship with t
 
 - **main function**
 The main function create an object of Game class and excute the start, play an final result functions.
+
+- - -
+
+## Testing 
+I have manually tested the project by doing the following: 
+  - Passed the code through a PEP8 linter and confirmed there are no problems.
+  - Given invalid inputs: words with non-alpha characters or incorrect words, and the code responds correctly.
+  - Tested in my local terminal and the Code Institute Heroku terminal.
+
+**Bugs**
+
+*Solved Bugs*
+There were some errors during the deployment on Heroku.
+- rename runtime.txt with .python-version and remove python- prefix from file content.
+- 'nltk.txt' not found, not downloading any corpora
+    
+    This issue occurred because I am using NLTK to get the meaning of the word, and therefore, I needed to download WordNet. However, during deployment on Heroku, it is not possible to do this manually. To resolve this, I created a file and named it nltk.txt contains the corpora that being used, so it can be downloaded during the build process on the server.
+    Reference to this solution: 
+    [nltk.txt](https://medium.com/analytics-vidhya/deploying-nlp-model-on-heroku-using-flask-nltk-and-git-lfs-eed7d1b22b11)
+
+- Compiled slug size: 570.1M is too large (max is 500M).
+  This issue occurred because I am using spaCy to get the POS tag of the word, and therefore, I needed to load en_core_web_lg. And since its size was very large, I replaced it with en_core_web_sm
+
+**Remaining Bugs:**
+- No remaining Bugs
+
+**Validator Testing:**
+- PEP8:
+   No errors were returned from PEP8online.com
+![Mystery Phrase validate code on PEP8](images/validate.png)
+
+- - - 
+
+
+
+
 
 
 
