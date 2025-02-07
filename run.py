@@ -6,7 +6,7 @@ import random
 print("Loading data....")
 
 # Load spaCy model
-nlp = spacy.load('en_core_web_lg')
+nlp = spacy.load('en_core_web_sm')
 # List of English words (could be expanded or replaced)
 word_list = ["quick", "fox", "jumps", "over", "lazy", "dog", "cat", "happy",
              "silent", "run", "beautiful", "fast", "slow", "sits", "under",
