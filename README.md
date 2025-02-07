@@ -13,6 +13,7 @@ The "Mystery Phrase Game" is a game developed using Python in the terminal. The 
 
 * [How To Play](#how-to-play)
 * [Features](#features)
+* [Data Model](#data-model)
 
 - - -
 
@@ -53,4 +54,59 @@ The program generates a random sentence.For each word in the sentence, a descrip
 - After all words in the sentence have been guessed or attempted, a summary of the game results will be displayed, showing the guesses and the number of attempts used.
 
 ![Mystery Phrase final result](images/final-result.webp)
+
+- Future Features 
+  - The length of the sentence will be variable
+  - The sentence will be generated in a grammatically correct and syntactically valid manner, based on a large word net.
+
+- - -
+
+## Data Model
+
+The program is modeled using four types of classes:
+
+- **TextProcessor Class:**
+This class contains the main methods responsible for processing texts and words, such as generating a random sentence, extracting words from the sentence, determining the POS tag of each word, and providing its meaning.
+
+- **MysteryWord Class:**
+The MysteryWord class uses the TextProcessor class as a mixin. It includes properties for each word, such as:
+  - word
+  - Length
+  - First letter
+  - Meaning
+  - POS tag
+  - Number of available attempts
+  - Whether the word has been guessed or not.
+
+  It also contains methods for:
+   - Describing the word
+   - Comparing the user's input with the word
+   - Printing the final result for that word
+
+- **MysteryPhrase Class:**
+The MysteryPhrase class uses the TextProcessor class as a mixin and contains the following properties:
+    - phrase: The randomly generated sentence.
+    - Words POS Tag: The types (e.g., noun, verb, etc.) of each word in the phrase.
+    - Word list: A collection of the individual words in the phrase as word object of MysteryWord class.
+
+  The class also includes the following methods:
+    - Identify Words and Their POS tag: This method determines the POS Tag of each word in the phrase.
+    - Describe Sentence
+    - Print Current Status: This method displays the current status of the phrase, showing the words that have been guessed correctly so far.
+
+- **Game Class:**
+The Game class does not contain any attributes, but it has a relationship with the MysteryPhrase class, as it hase a phrase object.
+
+  The class includes the following methods:
+    - Start Game: This method prints the starting messages on the screen to initiate the game.
+    - Play Game: This method iterates through the words of the sentence, displays their descriptions, reads user input, and compares the input with the actual word.
+    - Final Result: This method prints the final result on the screen after the game ends.
+
+- **main function**
+The main function create an object of Game class and excute the start, play an final result functions.
+
+
+
+
+
 
