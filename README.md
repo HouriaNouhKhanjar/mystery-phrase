@@ -12,6 +12,7 @@ The "Mystery Phrase Game" is a game developed using Python in the terminal. The 
 ## CONTENTS
 
 * [How To Play](#how-to-play)
+* [Flowchart](#flowchart)
 * [Features](#features)
 * [Data Model](#data-model)
 * [Testing](#testing)
