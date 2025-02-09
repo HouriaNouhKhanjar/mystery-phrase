@@ -113,7 +113,7 @@ The Game class does not contain any attributes, but it has a relationship with t
     - Final Result: This method prints the final result on the screen after the game ends.
 
 - **main function**
-The main function create an object of Game class and excute the start, play an final result functions.
+The main function creats an object of Game class and excuts the start, play and final result functions.
 
 - - -
 
