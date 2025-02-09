@@ -24,6 +24,12 @@ The "Mystery Phrase Game" is a game developed using Python in the terminal. The 
 
 The program generates a random sentence.For each word in the sentence, a description or clue is shown to the player.The player can attempt to guess the word multiple times. If the player exceeds the allowed number of guesses for a word, the game moves on to the next word.After the player has gone through all the words in the sentence, a summary of the results is displayed, showing how many correct guesses were made and how many attempts were used.
 
+- - - 
+
+## Flowchart
+
+
+![Mystery Phrase flowchart](images/flowchart.webp)
 
 - - - 
 
