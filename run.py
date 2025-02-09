@@ -1,4 +1,3 @@
-import nltk
 from nltk.corpus import wordnet
 import spacy
 import random
@@ -90,7 +89,7 @@ class MysteryWord(TextProcessor):
                    f"\nincorrect.You have {number_attempts}.\n"
 
         self.is_guessed = True
-        return f"\nCongratulations!! you have guessed the word.\n"
+        return "\nCongratulations!! you have guessed the word.\n"
 
     def print_result(self):
         print(f'{self.word:{15}} \t {self.is_guessed:{6}} \t \
